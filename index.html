@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MMPI2 الصفحة الاولى</title>
+  <style>
+    :root{
+      --brand:#0078D7;
+      --brand-dark:#005a9e;
+      --bg:#ffffff;
+      --text:#222222;
+      --muted:#6b7280;
+      --danger:#c1121f;
+      --border:#e5e7eb;
+      --card:#f9fafb;
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"}
+    a{color:var(--brand);text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+
+    header{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+    .logo{display:flex;gap:12px;align-items:center}
+    .logo-mark{width:40px;height:40px;border-radius:12px;background:var(--brand);display:grid;place-items:center;color:#fff;font-weight:700}
+    .title{font-size:22px;margin:0}
+
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+    .muted{color:var(--muted)}
+    .row{display:flex;gap:16px;flex-wrap:wrap}
+    .spacer{height:16px}
+
+    .btn{appearance:none;border:0;background:var(--brand);color:#fff;padding:12px 18px;border-radius:12px;font-size:16px;cursor:pointer;transition:transform .02s ease, background .2s ease;white-space:nowrap}
+    .btn:hover{background:var(--brand-dark)}
+    .btn:active{transform:translateY(1px)}
+    .btn.sec{background:#e2e8f0;color:#0f172a}
+    .btn.danger{background:var(--danger)}
+
+    .grid{display:grid;gap:16px}
+    .grid-2{grid-template-columns:1fr 1fr}
+    @media (max-width: 800px){.grid-2{grid-template-columns:1fr}}
+
+    label{font-weight:600}
+    input[type="text"], input[type="number"], input[type="date"], select{
+      width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;background:#fff;font-size:16px
+    }
+
+    .message{margin-top:8px;font-size:14px}
+    .message.ok{color:#0a7c2f}
+    .message.err{color:var(--danger)}
+
+    .hidden{display:none}
+
+    /* previous users list */
+    .list{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff}
+    .list-item{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border)}
+    .list-item:last-child{border-bottom:0}
+    .tag{font-size:12px;padding:4px 8px;border-radius:999px;background:#eef2ff;color:#3730a3}
+
+    footer{padding:24px 0;color:var(--muted);font-size:14px;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="logo-mark">M</div>
+        <h1 class="title">MMPI2</h1>
+      </div>
+      <nav class="row">
+        <button class="btn sec" id="btnHome">الرئيسية</button>
+        <a class="btn sec" href="https://github.com/" target="_blank" rel="noopener">المستودع</a>
+      </nav>
+    </header>
+
+    <!-- Welcome -->
+    <section id="welcome" class="card">
+      <h2 style="margin-top:0">اهلا بكم في اختبار MMPI</h2>
+      <p class="muted">هذه هي الصفحة الاولى. يمكنك انشاء مستخدم جديد او فتح مستخدم سابق. يمكن التصدير والاستيراد لاحقا. يتم التخزين محليا داخل المتصفح في هذه المرحلة.</p>
+      <div class="spacer"></div>
+      <div class="row">
+        <button class="btn" id="btnNew">مستخدم جديد</button>
+        <button class="btn" id="btnPrev">مستخدم سابق</button>
+      </div>
+    </section>
+
+    <!-- New user form -->
+    <section id="newUser" class="card hidden">
+      <h3 style="margin-top:0">انشاء مستخدم</h3>
+      <div class="grid grid-2">
+        <div>
+          <label for="name">الاسم</label>
+          <input id="name" type="text" placeholder="اكتب الاسم">
+        </div>
+        <div>
+          <label for="age">العمر</label>
+          <input id="age" type="number" min="0" max="200" placeholder="0">
+        </div>
+        <div>
+          <label for="folder">رقم المجلد</label>
+          <input id="folder" type="text" placeholder="مثال 01">
+        </div>
+        <div>
+          <label for="date">التاريخ</label>
+          <input id="date" type="date">
+        </div>
+        <div>
+          <label for="gender">الجنس</label>
+          <select id="gender">
+            <option value="">اختر الجنس</option>
+            <option value="Male">ذكر</option>
+            <option value="Female">انثى</option>
+          </select>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div class="row">
+        <button class="btn" id="createUser">انشاء مستخدم</button>
+        <button class="btn sec" id="cancelNew">الغاء</button>
+      </div>
+      <div id="newMsg" class="message"></div>
+    </section>
+
+    <!-- Previous users -->
+    <section id="prevUsers" class="card hidden">
+      <h3 style="margin-top:0">المستخدمون السابقون</h3>
+      <div id="emptyState" class="muted">لا يوجد مستخدمون بعد</div>
+      <div id="listWrap" class="list hidden"></div>
+      <div class="spacer"></div>
+      <div class="row">
+        <button class="btn" id="openUser">فتح</button>
+        <button class="btn sec" id="clearSel">ازالة التحديد</button>
+        <button class="btn" id="exportSel">تصدير</button>
+        <button class="btn" id="importBtn">استيراد</button>
+        <button class="btn" id="copyUser">نسخ</button>
+        <button class="btn danger" id="deleteUser">حذف</button>
+        <input id="importInput" type="file" accept="application/json" multiple class="hidden">
+      </div>
+      <div id="prevMsg" class="message"></div>
+    </section>
+
+    <footer>
+      MMPI2 واجهة البداية. التخزين محلي في هذه النسخة. صفحة العرض الرئيسية ستأتي لاحقا.
+    </footer>
+  </div>
+
+<script>
+  // Local storage keys
+  const KEY_INDEX = "mmpi2_user_index"; // array of user infos
+  const FILE_KEY = name => `mmpi2_user_file_${encodeURIComponent(name)}`;
+
+  function loadIndex(){
+    try{ return JSON.parse(localStorage.getItem(KEY_INDEX)) || []; }catch{ return []; }
+  }
+  function saveIndex(arr){ localStorage.setItem(KEY_INDEX, JSON.stringify(arr)); }
+
+  function readUserFile(name){
+    const raw = localStorage.getItem(FILE_KEY(name));
+    if(!raw) return null;
+    try{ return JSON.parse(raw); }catch{ return null; }
+  }
+  function writeUserFile(name, data){
+    localStorage.setItem(FILE_KEY(name), JSON.stringify(data));
+  }
+  function removeUserFile(name){ localStorage.removeItem(FILE_KEY(name)); }
+
+  // UI helpers
+  const $ = sel => document.querySelector(sel);
+  const show = el => el.classList.remove("hidden");
+  const hide = el => el.classList.add("hidden");
+  const msg = (el, text, ok=false) => { el.textContent = text || ""; el.className = `message ${ok ? 'ok':'err'}`; };
+
+  // Sections
+  const secWelcome = $("#welcome");
+  const secNew = $("#newUser");
+  const secPrev = $("#prevUsers");
+  const listWrap = $("#listWrap");
+  const emptyState = $("#emptyState");
+
+  // Nav buttons
+  $("#btnHome").onclick = () => { hide(secNew); hide(secPrev); show(secWelcome); };
+  $("#btnNew").onclick  = () => { hide(secWelcome); hide(secPrev); show(secNew); };
+  $("#btnPrev").onclick = () => { hide(secWelcome); hide(secNew);  show(secPrev); renderPrev(); };
+  $("#cancelNew").onclick = () => { $("#btnHome").click(); };
+
+  // Create user
+  $("#createUser").onclick = async () => {
+    const name = $("#name").value.trim();
+    const age = $("#age").value.trim();
+    const folder = $("#folder").value.trim();
+    const date = $("#date").value;
+    const gender = $("#gender").value;
+
+    const out = $("#newMsg");
+
+    if(!name){ return msg(out, "يرجى ادخال الاسم"); }
+    if(!age || isNaN(Number(age)) || Number(age) < 0 || Number(age) > 200){ return msg(out, "يرجى ادخال عمر صالح"); }
+    if(!folder){ return msg(out, "يرجى ادخال رقم المجلد"); }
+    if(!date){ return msg(out, "يرجى ادخال التاريخ"); }
+    if(!gender){ return msg(out, "يرجى اختيار الجنس"); }
+
+    // Check duplicate names
+    const index = loadIndex();
+    if(index.some(u => u.name === name)){
+      return msg(out, "يوجد مستخدم بنفس الاسم");
+    }
+
+    // Build user info
+    const userInfo = { name, age: Number(age), folder_number: folder, date, gender };
+
+    // Try to pull core questions if you add Core/core_data.json later
+    let questions = [];
+    try{
+      const res = await fetch("Core/core_data.json");
+      if(res.ok){
+        const core = await res.json();
+        questions = (core || []).map(item => ({
+          "English Question Number": item["English Question Number"],
+          "Arabic Question Number": item["Arabic Question Number"],
+          "Y": item["Y"],
+          "Question Text": item["Question Text"],
+          "Answer": null
+        }));
+      }
+    }catch(e){ /* optional core file not present now */ }
+
+    const userFile = { user_info: userInfo, questions };
+
+    // Save
+    index.push(userInfo);
+    saveIndex(index);
+    writeUserFile(name, userFile);
+
+    msg(out, `تم انشاء ملف جديد للمستخدم ${name}`, true);
+
+    // Clear fields
+    $("#name").value = "";
+    $("#age").value = "";
+    $("#folder").value = "";
+    $("#date").value = "";
+    $("#gender").value = "";
+  };
+
+  // Previous users render
+  function renderPrev(){
+    const index = loadIndex();
+    listWrap.innerHTML = "";
+
+    if(index.length === 0){ show(emptyState); hide(listWrap); return; }
+    hide(emptyState); show(listWrap);
+
+    index.forEach((u, i) => {
+      const file = readUserFile(u.name);
+      let status = "No Data";
+      if(file && Array.isArray(file.questions)){
+        const allAnswered = file.questions.length > 0 && file.questions.every(q => q.Answer === 'Yes' || q.Answer === 'No');
+        status = allAnswered ? "Completed" : "In Progress";
+      }
+      const item = document.createElement("div");
+      item.className = "list-item";
+      item.innerHTML = `
+        <input type="checkbox" class="sel" data-name="${encodeURIComponent(u.name)}">
+        <div>
+          <div><strong>الاسم:</strong> ${u.name} <span class="tag">${status}</span></div>
+          <div class="muted">العمر: ${u.age} . المجلد: ${u.folder_number} . التاريخ: ${u.date} . الجنس: ${u.gender || ''}</div>
+        </div>
+        <button class="btn sec openOne" data-name="${encodeURIComponent(u.name)}">فتح</button>
+      `;
+      listWrap.appendChild(item);
+    });
+
+    // single open
+    listWrap.querySelectorAll('.openOne').forEach(btn => {
+      btn.onclick = () => openSelected([decodeURIComponent(btn.dataset.name)]);
+    });
+  }
+
+  function getSelectedNames(){
+    return Array.from(listWrap.querySelectorAll('.sel:checked')).map(cb => decodeURIComponent(cb.dataset.name));
+  }
+
+  function openSelected(names){
+    const prev = $("#prevMsg");
+    if(!names || names.length !== 1){ return msg(prev, "يرجى اختيار مستخدم واحد للفتح"); }
+    const name = names[0];
+    // Redirect to the main page later
+    window.location.href = `main.html?user=${encodeURIComponent(name)}`;
+  }
+
+  $("#openUser").onclick = () => openSelected(getSelectedNames());
+  $("#clearSel").onclick = () => { listWrap.querySelectorAll('.sel').forEach(cb => cb.checked = false); };
+
+  // Export selected
+  $("#exportSel").onclick = () => {
+    const names = getSelectedNames();
+    const prev = $("#prevMsg");
+    if(names.length === 0){ return msg(prev, "يرجى اختيار مستخدم للتصدير"); }
+    names.forEach(name => {
+      const data = readUserFile(name);
+      if(!data) return;
+      const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${name}.json`;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    });
+    msg(prev, "تم التصدير", true);
+  };
+
+  // Import files
+  $("#importBtn").onclick = () => $("#importInput").click();
+  $("#importInput").onchange = async e => {
+    const files = Array.from(e.target.files || []);
+    if(files.length === 0) return;
+    const index = loadIndex();
+    const existing = new Set(index.map(u => u.name));
+    const imported = [];
+    const skipped = [];
+
+    for(const f of files){
+      try{
+        const text = await f.text();
+        const json = JSON.parse(text);
+        const info = json.user_info || {};
+        const name = info.name;
+        if(!name){ skipped.push(f.name); continue; }
+        if(existing.has(name)){ skipped.push(name); continue; }
+        writeUserFile(name, json);
+        index.push(info); existing.add(name); imported.push(name);
+      }catch{ skipped.push(f.name); }
+    }
+    saveIndex(index);
+    renderPrev();
+    const lines = [];
+    if(imported.length){ lines.push(`تم الاستيراد: ${imported.join(', ')}`); }
+    if(skipped.length){ lines.push(`تم التجاهل: ${skipped.join(', ')}`); }
+    msg($("#prevMsg"), lines.join(' . '), true);
+    e.target.value = ""; // reset
+  };
+
+  // Copy user
+  $("#copyUser").onclick = () => {
+    const names = getSelectedNames();
+    const prev = $("#prevMsg");
+    if(names.length !== 1){ return msg(prev, "يرجى اختيار مستخدم واحد للنسخ"); }
+    const original = names[0];
+    const newName = prompt("ادخل اسما جديدا للنسخة");
+    if(!newName) return;
+    const index = loadIndex();
+    if(index.some(u => u.name === newName)){ return msg(prev, "الاسم موجود من قبل"); }
+    const file = readUserFile(original);
+    if(!file) return msg(prev, "لا يوجد ملف للمستخدم المختار");
+    const copy = JSON.parse(JSON.stringify(file));
+    copy.user_info.name = newName;
+    writeUserFile(newName, copy);
+    index.push(copy.user_info); saveIndex(index);
+    renderPrev();
+    msg(prev, `تم نسخ المستخدم ${original} الى ${newName}`, true);
+  };
+
+  // Delete users
+  $("#deleteUser").onclick = () => {
+    const names = getSelectedNames();
+    const prev = $("#prevMsg");
+    if(names.length === 0){ return msg(prev, "يرجى اختيار مستخدم للحذف"); }
+    if(!confirm("هل انت متأكد من الحذف؟")) return;
+    let index = loadIndex();
+    names.forEach(n => removeUserFile(n));
+    index = index.filter(u => !names.includes(u.name));
+    saveIndex(index);
+    renderPrev();
+    msg(prev, "تم الحذف", true);
+  };
+
+  // First paint
+  // Show welcome by default
+</script>
+</body>
+</html>
