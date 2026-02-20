@@ -5,16 +5,22 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getAnalytics } from "firebase/analytics";
 
-// Your web app's Firebase configuration
+// Firebase configuration - Load from environment variables
+// SECURITY: Never hardcode credentials in source code!
 const firebaseConfig = {
-  apiKey: "AIzaSyCn5bpGsafxNxFgR0dzGIzM1CkgrPdtlnc",
-  authDomain: "mmpi2-a998b.firebaseapp.com",
-  projectId: "mmpi2-a998b",
-  storageBucket: "mmpi2-a998b.firebasestorage.app",
-  messagingSenderId: "409413124873",
-  appId: "1:409413124873:web:fce3c41c27e02706cc09d8",
-  measurementId: "G-P10V0DG9HD"
+  apiKey: process.env.VITE_FIREBASE_API_KEY || import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN || import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.VITE_FIREBASE_PROJECT_ID || import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET || import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID || import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.VITE_FIREBASE_APP_ID || import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID || import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
+
+// Validate configuration is loaded
+if (!firebaseConfig.apiKey || firebaseConfig.apiKey.includes('your_')) {
+  console.warn('⚠️ Firebase configuration incomplete. Please set environment variables from .env file.');
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
