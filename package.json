@@ -1,0 +1,33 @@
+{
+  "name": "mmpi2-assessment-system",
+  "version": "1.0.0",
+  "description": "Professional MMPI-2 Psychological Assessment System with Firebase Integration",
+  "type": "module",
+  "main": "public/index.html",
+  "scripts": {
+    "dev": "http-server public -p 8000 -c-1",
+    "start": "npm run dev",
+    "build": "echo 'Static site, no build needed'",
+    "preview": "http-server dist -p 4173",
+    "deploy": "git push origin main"
+  },
+  "keywords": [
+    "mmpi2",
+    "assessment",
+    "psychological",
+    "firebase",
+    "psychology"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "firebase-tools": "^13.0.0"
+  },
+  "dependencies": {
+    "firebase": "^10.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

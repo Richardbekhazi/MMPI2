@@ -18,8 +18,9 @@ Thumbs.db
 node_modules/
 package-lock.json
 yarn.lock
+pnpm-lock.yaml
 
-# Dependencies
+# Build outputs
 dist/
 build/
 
@@ -28,3 +29,18 @@ build/
 *.sqlite
 *.sqlite3
 *.log
+
+# Vite
+.vite/
+
+# System files
+Thumbs.db
+.DS_Store
+*.pem
+*.key
+
+# Editor temp files
+*~
+*.swp
+*.swo
+*.swn

@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <title>MMPI2 | لوحة التحكم</title>
+  
+  <!-- Premium Arabic Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main Styles -->
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+  <!-- Toast Container -->
+  <div id="toastArea" class="toast-container"></div>
+
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header>
+      <div class="logo-area">
+        <div class="logo-icon">M</div>
+        <div class="logo-text">
+          <h1>MMPI-2</h1>
+          <span data-lang="logoSubtitle">نظام التقييم النفسي</span>
+        </div>
+      </div>
+      <nav class="nav-actions">
+        <button class="btn btn-ghost" id="btnHome" title="الرئيسية">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span class="nav-text" data-lang="home">الرئيسية</span>
+        </button>
+        <select id="language-switcher" class="btn btn-ghost">
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+        </select>
+      </nav>
+    </header>
+
+    <main style="position: relative; min-height: 400px;">
+      
+      <!-- VIEW: Welcome -->
+      <section id="welcome" class="view-section active">
+        <div class="card">
+          <div class="hero-content">
+            <h2 data-lang="welcomeTitle">مرحباً بكم في نظام اختبار MMPI</h2>
+            <p data-lang="welcomeMessage">منصة احترافية لإدارة الاختبارات النفسية. يمكنك إنشاء ملفات مفحوصين جديدة، إدارة الأرشيف، وتصدير البيانات بسهولة تامة.</p>
+            
+            <div class="hero-actions">
+              <button class="btn btn-primary hero-btn" id="btnNew">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span data-lang="newUser">مستخدم جديد</span>
+              </button>
+              <button class="btn btn-secondary hero-btn" id="btnPrev">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <span data-lang="archive">الأرشيف</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: New User -->
+      <section id="newUser" class="view-section">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px;">
+            <h3 data-lang="createNewRecord">إنشاء سجل جديد</h3>
+            <button class="btn btn-ghost btn-icon-only" id="cancelNew" data-lang-title="back">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+
+          <div class="form-grid">
+            <div class="input-group">
+              <label for="name" data-lang="fullName">الاسم الكامل</label>
+              <input id="name" type="text" data-lang-placeholder="fullNamePlaceholder">
+            </div>
+            <div class="input-group">
+              <label for="age" data-lang="age">العمر</label>
+              <input id="age" type="number" min="0" max="150" data-lang-placeholder="agePlaceholder">
+            </div>
+            <div class="input-group">
+              <label for="folder" data-lang="fileNumber">رقم الملف</label>
+              <input id="folder" type="text" data-lang-placeholder="fileNumberPlaceholder">
+            </div>
+            <div class="input-group">
+              <label for="date" data-lang="procedureDate">تاريخ الإجراء</label>
+              <input id="date" type="date">
+            </div>
+            <div class="input-group">
+              <label for="gender" data-lang="gender">الجنس</label>
+              <select id="gender">
+                <option value="" disabled selected data-lang="selectGender">اختر الجنس...</option>
+                <option value="Male" data-lang="male">ذكر</option>
+                <option value="Female" data-lang="female">أنثى</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap: 12px;">
+            <button class="btn btn-primary" id="createUser" data-lang="saveAndCreate">حفظ وإنشاء</button>
+            <button class="btn btn-secondary" id="cancelNew2" data-lang="back">عودة</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: Previous Users / Archive -->
+      <section id="prevUsers" class="view-section">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px;">
+            <h3 data-lang="archiveAndPreviousUsers">الأرشيف والمستخدمين السابقين</h3>
+            <button class="btn btn-ghost btn-icon-only" id="closePrev" data-lang-title="back">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+
+          <div style="margin-bottom: 20px; font-size: 14px; color: var(--text-muted);" data-lang="selectUsersMessage">
+            قم بتحديد المستخدمين لإجراء العمليات
+          </div>
+
+          <div id="emptyState" class="empty-state">
+            <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <p data-lang="noRecords">لا توجد سجلات محفوظة حالياً</p>
+          </div>
+
+          <div id="listWrap" class="users-list-container hidden"></div>
+
+          <div class="action-bar" style="margin-top: 24px;">
+            <button class="btn btn-primary" id="openUser" data-lang="openFile">فتح الملف</button>
+            <button class="btn btn-secondary" id="clearSel" data-lang="clearSelection">إلغاء التحديد</button>
+            <button class="btn btn-secondary" id="exportSel" data-lang="export">تصدير</button>
+            <button class="btn btn-secondary" id="copyUser" data-lang="copy">نسخ</button>
+            <button class="btn btn-danger" id="deleteUser" data-lang="delete">حذف</button>
+            <input type="file" id="importInput" multiple accept=".json" style="display:none;">
+            <button class="btn btn-secondary" id="importBtn" data-lang="import">استيراد</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-analytics.js"></script>
+
+  <!-- App Scripts (Using modules) -->
+  <script type="module">
+    // Import all modules
+    import { languageManager } from '../src/languages/languageManager.js';
+    import { translations } from './translations.js';
+    import * as firebaseOps from './firebaseOperations.js';
+
+    // Make globally available for non-module scripts
+    window.languageManager = languageManager;
+    window.translations = translations;
+    window.firebaseOps = firebaseOps;
+
+    // Initialize app
+    console.log('MMPI-2 App Initialized');
+    console.log('Current Language:', languageManager.getCurrentLanguage());
+  </script>
+
+  <!-- Legacy script (backward compatible) -->
+  <script src="./app.js" defer></script>
+
+</body>
+</html>
