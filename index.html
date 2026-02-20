@@ -2,381 +2,168 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MMPI2 الصفحة الاولى</title>
-  <style>
-    :root{
-      --brand:#0078D7;
-      --brand-dark:#005a9e;
-      --bg:#ffffff;
-      --text:#222222;
-      --muted:#6b7280;
-      --danger:#c1121f;
-      --border:#e5e7eb;
-      --card:#f9fafb;
-      --radius:16px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"}
-    a{color:var(--brand);text-decoration:none}
-    .container{max-width:1100px;margin:0 auto;padding:24px}
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <title>MMPI2 | لوحة التحكم</title>
+  
+  <!-- Premium Arabic Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 
-    header{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
-    .logo{display:flex;gap:12px;align-items:center}
-    .logo-mark{width:40px;height:40px;border-radius:12px;background:var(--brand);display:grid;place-items:center;color:#fff;font-weight:700}
-    .title{font-size:22px;margin:0}
-
-    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
-    .muted{color:var(--muted)}
-    .row{display:flex;gap:16px;flex-wrap:wrap}
-    .spacer{height:16px}
-
-    .btn{appearance:none;border:0;background:var(--brand);color:#fff;padding:12px 18px;border-radius:12px;font-size:16px;cursor:pointer;transition:transform .02s ease, background .2s ease;white-space:nowrap}
-    .btn:hover{background:var(--brand-dark)}
-    .btn:active{transform:translateY(1px)}
-    .btn.sec{background:#e2e8f0;color:#0f172a}
-    .btn.danger{background:var(--danger)}
-
-    .grid{display:grid;gap:16px}
-    .grid-2{grid-template-columns:1fr 1fr}
-    @media (max-width: 800px){.grid-2{grid-template-columns:1fr}}
-
-    label{font-weight:600}
-    input[type="text"], input[type="number"], input[type="date"], select{
-      width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;background:#fff;font-size:16px
-    }
-
-    .message{margin-top:8px;font-size:14px}
-    .message.ok{color:#0a7c2f}
-    .message.err{color:var(--danger)}
-
-    .hidden{display:none}
-
-    /* previous users list */
-    .list{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff}
-    .list-item{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border)}
-    .list-item:last-child{border-bottom:0}
-    .tag{font-size:12px;padding:4px 8px;border-radius:999px;background:#eef2ff;color:#3730a3}
-
-    footer{padding:24px 0;color:var(--muted);font-size:14px;text-align:center}
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
+
+  <!-- Toast Container -->
+  <div id="toastArea" class="toast-container"></div>
+
+  <div class="app-container">
+    
+    <!-- Header -->
     <header>
-      <div class="logo">
-        <div class="logo-mark">M</div>
-        <h1 class="title">MMPI2</h1>
+      <div class="logo-area">
+        <div class="logo-icon">M</div>
+        <div class="logo-text">
+          <h1>MMPI-2</h1>
+          <span data-lang="logoSubtitle">نظام التقييم النفسي</span>
+        </div>
       </div>
-      <nav class="row">
-        <button class="btn sec" id="btnHome">الرئيسية</button>
-        <a class="btn sec" href="https://github.com/" target="_blank" rel="noopener">المستودع</a>
+      <nav class="nav-actions">
+        <button class="btn btn-ghost" id="btnHome" title="الرئيسية">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span class="nav-text" data-lang="home">الرئيسية</span>
+        </button>
+        <select id="language-switcher" class="btn btn-ghost">
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+        </select>
       </nav>
     </header>
 
-    <!-- Welcome -->
-    <section id="welcome" class="card">
-      <h2 style="margin-top:0">اهلا بكم في اختبار MMPI</h2>
-      <p class="muted">هذه هي الصفحة الاولى. يمكنك انشاء مستخدم جديد او فتح مستخدم سابق. يمكن التصدير والاستيراد لاحقا. يتم التخزين محليا داخل المتصفح في هذه المرحلة.</p>
-      <div class="spacer"></div>
-      <div class="row">
-        <button class="btn" id="btnNew">مستخدم جديد</button>
-        <button class="btn" id="btnPrev">مستخدم سابق</button>
-      </div>
-    </section>
+    <main style="position: relative; min-height: 400px;">
+      
+      <!-- VIEW: Welcome -->
+      <section id="welcome" class="view-section active">
+        <div class="card">
+          <div class="hero-content">
+            <h2 data-lang="welcomeTitle">مرحباً بكم في نظام اختبار MMPI</h2>
+            <p data-lang="welcomeMessage">منصة احترافية لإدارة الاختبارات النفسية. يمكنك إنشاء ملفات مفحوصين جديدة، إدارة الأرشيف، وتصدير البيانات بسهولة تامة.</p>
+            
+            <div class="hero-actions">
+              <button class="btn btn-primary hero-btn" id="btnNew">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span data-lang="newUser">مستخدم جديد</span>
+              </button>
+              <button class="btn btn-secondary hero-btn" id="btnPrev">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <span data-lang="archive">الأرشيف</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <!-- New user form -->
-    <section id="newUser" class="card hidden">
-      <h3 style="margin-top:0">انشاء مستخدم</h3>
-      <div class="grid grid-2">
-        <div>
-          <label for="name">الاسم</label>
-          <input id="name" type="text" placeholder="اكتب الاسم">
-        </div>
-        <div>
-          <label for="age">العمر</label>
-          <input id="age" type="number" min="0" max="200" placeholder="0">
-        </div>
-        <div>
-          <label for="folder">رقم المجلد</label>
-          <input id="folder" type="text" placeholder="مثال 01">
-        </div>
-        <div>
-          <label for="date">التاريخ</label>
-          <input id="date" type="date">
-        </div>
-        <div>
-          <label for="gender">الجنس</label>
-          <select id="gender">
-            <option value="">اختر الجنس</option>
-            <option value="Male">ذكر</option>
-            <option value="Female">انثى</option>
-          </select>
-        </div>
-      </div>
-      <div class="spacer"></div>
-      <div class="row">
-        <button class="btn" id="createUser">انشاء مستخدم</button>
-        <button class="btn sec" id="cancelNew">الغاء</button>
-      </div>
-      <div id="newMsg" class="message"></div>
-    </section>
+      <!-- VIEW: New User -->
+      <section id="newUser" class="view-section">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px;">
+            <h3 data-lang="createNewRecord">إنشاء سجل جديد</h3>
+            <button class="btn btn-ghost btn-icon-only" id="cancelNew" title="عودة">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
 
-    <!-- Previous users -->
-    <section id="prevUsers" class="card hidden">
-      <h3 style="margin-top:0">المستخدمون السابقون</h3>
-      <div id="emptyState" class="muted">لا يوجد مستخدمون بعد</div>
-      <div id="listWrap" class="list hidden"></div>
-      <div class="spacer"></div>
-      <div class="row">
-        <button class="btn" id="openUser">فتح</button>
-        <button class="btn sec" id="clearSel">ازالة التحديد</button>
-        <button class="btn" id="exportSel">تصدير</button>
-        <button class="btn" id="importBtn">استيراد</button>
-        <button class="btn" id="copyUser">نسخ</button>
-        <button class="btn danger" id="deleteUser">حذف</button>
-        <input id="importInput" type="file" accept="application/json" multiple class="hidden">
-      </div>
-      <div id="prevMsg" class="message"></div>
-    </section>
+          <div class="form-grid">
+            <div class="input-group">
+              <label for="name" data-lang="fullName">الاسم الكامل</label>
+              <input id="name" type="text" data-lang-placeholder="fullNamePlaceholder">
+            </div>
+            <div class="input-group">
+              <label for="age" data-lang="age">العمر</label>
+              <input id="age" type="number" min="0" max="150" data-lang-placeholder="agePlaceholder">
+            </div>
+            <div class="input-group">
+              <label for="folder" data-lang="fileNumber">رقم الملف</label>
+              <input id="folder" type="text" data-lang-placeholder="fileNumberPlaceholder">
+            </div>
+            <div class="input-group">
+              <label for="date" data-lang="procedureDate">تاريخ الإجراء</label>
+              <input id="date" type="date">
+            </div>
+            <div class="input-group">
+              <label for="gender" data-lang="gender">الجنس</label>
+              <select id="gender">
+                <option value="" disabled selected data-lang="selectGender">اختر الجنس...</option>
+                <option value="Male" data-lang="male">ذكر</option>
+                <option value="Female" data-lang="female">أنثى</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex; gap: 16px; border-top: 1px solid #f1f5f9; padding-top: 24px;">
+            <button class="btn btn-primary" id="createUser" style="flex:1">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+              <span data-lang="saveAndCreate">حفظ وإنشاء</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: Previous Users -->
+      <section id="prevUsers" class="view-section">
+        <div class="card">
+          <div style="margin-bottom: 24px;">
+            <h3 data-lang="archiveAndPreviousUsers">الأرشيف والمستخدمين السابقين</h3>
+            <p style="font-size:14px; margin-top:4px;" data-lang="selectUsersMessage">قم بتحديد المستخدمين لإجراء العمليات</p>
+          </div>
+
+          <div id="listWrap" class="users-list-container">
+            <!-- Items injected by JS -->
+          </div>
+          
+          <div id="emptyState" class="empty-state hidden">
+            <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            <span data-lang="noRecords">لا توجد سجلات محفوظة حالياً</span>
+          </div>
+
+          <div class="action-bar">
+            <button class="btn btn-primary" id="openUser">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              <span data-lang="openFile">فتح الملف</span>
+            </button>
+            <div style="flex:1"></div>
+            <button class="btn btn-secondary" id="clearSel" title="إلغاء التحديد">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg>
+            </button>
+            <button class="btn btn-secondary" id="exportSel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span data-lang="export">تصدير</span>
+            </button>
+            <button class="btn btn-secondary" id="importBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              <span data-lang="import">استيراد</span>
+            </button>
+            <button class="btn btn-secondary" id="copyUser">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span data-lang="copy">نسخ</span>
+            </button>
+            <button class="btn btn-danger" id="deleteUser">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+              <span data-lang="delete">حذف</span>
+            </button>
+            <input id="importInput" type="file" accept="application/json" multiple class="hidden">
+          </div>
+        </div>
+      </section>
+
+    </main>
 
     <footer>
-      MMPI2 واجهة البداية. التخزين محلي في هذه النسخة. صفحة العرض الرئيسية ستأتي لاحقا.
+      MMPI2 واجهة البداية © 2025. التخزين يتم محلياً في المتصفح.
     </footer>
   </div>
 
-<script>
-  // Local storage keys
-  const KEY_INDEX = "mmpi2_user_index"; // array of user infos
-  const FILE_KEY = name => `mmpi2_user_file_${encodeURIComponent(name)}`;
-
-  function loadIndex(){
-    try{ return JSON.parse(localStorage.getItem(KEY_INDEX)) || []; }catch{ return []; }
-  }
-  function saveIndex(arr){ localStorage.setItem(KEY_INDEX, JSON.stringify(arr)); }
-
-  function readUserFile(name){
-    const raw = localStorage.getItem(FILE_KEY(name));
-    if(!raw) return null;
-    try{ return JSON.parse(raw); }catch{ return null; }
-  }
-  function writeUserFile(name, data){
-    localStorage.setItem(FILE_KEY(name), JSON.stringify(data));
-  }
-  function removeUserFile(name){ localStorage.removeItem(FILE_KEY(name)); }
-
-  // UI helpers
-  const $ = sel => document.querySelector(sel);
-  const show = el => el.classList.remove("hidden");
-  const hide = el => el.classList.add("hidden");
-  const msg = (el, text, ok=false) => { el.textContent = text || ""; el.className = `message ${ok ? 'ok':'err'}`; };
-
-  // Sections
-  const secWelcome = $("#welcome");
-  const secNew = $("#newUser");
-  const secPrev = $("#prevUsers");
-  const listWrap = $("#listWrap");
-  const emptyState = $("#emptyState");
-
-  // Nav buttons
-  $("#btnHome").onclick = () => { hide(secNew); hide(secPrev); show(secWelcome); };
-  $("#btnNew").onclick  = () => { hide(secWelcome); hide(secPrev); show(secNew); };
-  $("#btnPrev").onclick = () => { hide(secWelcome); hide(secNew);  show(secPrev); renderPrev(); };
-  $("#cancelNew").onclick = () => { $("#btnHome").click(); };
-
-  // Create user
-  $("#createUser").onclick = async () => {
-    const name = $("#name").value.trim();
-    const age = $("#age").value.trim();
-    const folder = $("#folder").value.trim();
-    const date = $("#date").value;
-    const gender = $("#gender").value;
-
-    const out = $("#newMsg");
-
-    if(!name){ return msg(out, "يرجى ادخال الاسم"); }
-    if(!age || isNaN(Number(age)) || Number(age) < 0 || Number(age) > 200){ return msg(out, "يرجى ادخال عمر صالح"); }
-    if(!folder){ return msg(out, "يرجى ادخال رقم المجلد"); }
-    if(!date){ return msg(out, "يرجى ادخال التاريخ"); }
-    if(!gender){ return msg(out, "يرجى اختيار الجنس"); }
-
-    // Check duplicate names
-    const index = loadIndex();
-    if(index.some(u => u.name === name)){
-      return msg(out, "يوجد مستخدم بنفس الاسم");
-    }
-
-    // Build user info
-    const userInfo = { name, age: Number(age), folder_number: folder, date, gender };
-
-    // Try to pull core questions if you add Core/core_data.json later
-    let questions = [];
-    try{
-      const res = await fetch("Core/core_data.json");
-      if(res.ok){
-        const core = await res.json();
-        questions = (core || []).map(item => ({
-          "English Question Number": item["English Question Number"],
-          "Arabic Question Number": item["Arabic Question Number"],
-          "Y": item["Y"],
-          "Question Text": item["Question Text"],
-          "Answer": null
-        }));
-      }
-    }catch(e){ /* optional core file not present now */ }
-
-    const userFile = { user_info: userInfo, questions };
-
-    // Save
-    index.push(userInfo);
-    saveIndex(index);
-    writeUserFile(name, userFile);
-
-    msg(out, `تم انشاء ملف جديد للمستخدم ${name}`, true);
-
-    // Clear fields
-    $("#name").value = "";
-    $("#age").value = "";
-    $("#folder").value = "";
-    $("#date").value = "";
-    $("#gender").value = "";
-  };
-
-  // Previous users render
-  function renderPrev(){
-    const index = loadIndex();
-    listWrap.innerHTML = "";
-
-    if(index.length === 0){ show(emptyState); hide(listWrap); return; }
-    hide(emptyState); show(listWrap);
-
-    index.forEach((u, i) => {
-      const file = readUserFile(u.name);
-      let status = "No Data";
-      if(file && Array.isArray(file.questions)){
-        const allAnswered = file.questions.length > 0 && file.questions.every(q => q.Answer === 'Yes' || q.Answer === 'No');
-        status = allAnswered ? "Completed" : "In Progress";
-      }
-      const item = document.createElement("div");
-      item.className = "list-item";
-      item.innerHTML = `
-        <input type="checkbox" class="sel" data-name="${encodeURIComponent(u.name)}">
-        <div>
-          <div><strong>الاسم:</strong> ${u.name} <span class="tag">${status}</span></div>
-          <div class="muted">العمر: ${u.age} . المجلد: ${u.folder_number} . التاريخ: ${u.date} . الجنس: ${u.gender || ''}</div>
-        </div>
-        <button class="btn sec openOne" data-name="${encodeURIComponent(u.name)}">فتح</button>
-      `;
-      listWrap.appendChild(item);
-    });
-
-    // single open
-    listWrap.querySelectorAll('.openOne').forEach(btn => {
-      btn.onclick = () => openSelected([decodeURIComponent(btn.dataset.name)]);
-    });
-  }
-
-  function getSelectedNames(){
-    return Array.from(listWrap.querySelectorAll('.sel:checked')).map(cb => decodeURIComponent(cb.dataset.name));
-  }
-
-  function openSelected(names){
-    const prev = $("#prevMsg");
-    if(!names || names.length !== 1){ return msg(prev, "يرجى اختيار مستخدم واحد للفتح"); }
-    const name = names[0];
-    // Redirect to the main page later
-    window.location.href = `main.html?user=${encodeURIComponent(name)}`;
-  }
-
-  $("#openUser").onclick = () => openSelected(getSelectedNames());
-  $("#clearSel").onclick = () => { listWrap.querySelectorAll('.sel').forEach(cb => cb.checked = false); };
-
-  // Export selected
-  $("#exportSel").onclick = () => {
-    const names = getSelectedNames();
-    const prev = $("#prevMsg");
-    if(names.length === 0){ return msg(prev, "يرجى اختيار مستخدم للتصدير"); }
-    names.forEach(name => {
-      const data = readUserFile(name);
-      if(!data) return;
-      const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `${name}.json`;
-      document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-    });
-    msg(prev, "تم التصدير", true);
-  };
-
-  // Import files
-  $("#importBtn").onclick = () => $("#importInput").click();
-  $("#importInput").onchange = async e => {
-    const files = Array.from(e.target.files || []);
-    if(files.length === 0) return;
-    const index = loadIndex();
-    const existing = new Set(index.map(u => u.name));
-    const imported = [];
-    const skipped = [];
-
-    for(const f of files){
-      try{
-        const text = await f.text();
-        const json = JSON.parse(text);
-        const info = json.user_info || {};
-        const name = info.name;
-        if(!name){ skipped.push(f.name); continue; }
-        if(existing.has(name)){ skipped.push(name); continue; }
-        writeUserFile(name, json);
-        index.push(info); existing.add(name); imported.push(name);
-      }catch{ skipped.push(f.name); }
-    }
-    saveIndex(index);
-    renderPrev();
-    const lines = [];
-    if(imported.length){ lines.push(`تم الاستيراد: ${imported.join(', ')}`); }
-    if(skipped.length){ lines.push(`تم التجاهل: ${skipped.join(', ')}`); }
-    msg($("#prevMsg"), lines.join(' . '), true);
-    e.target.value = ""; // reset
-  };
-
-  // Copy user
-  $("#copyUser").onclick = () => {
-    const names = getSelectedNames();
-    const prev = $("#prevMsg");
-    if(names.length !== 1){ return msg(prev, "يرجى اختيار مستخدم واحد للنسخ"); }
-    const original = names[0];
-    const newName = prompt("ادخل اسما جديدا للنسخة");
-    if(!newName) return;
-    const index = loadIndex();
-    if(index.some(u => u.name === newName)){ return msg(prev, "الاسم موجود من قبل"); }
-    const file = readUserFile(original);
-    if(!file) return msg(prev, "لا يوجد ملف للمستخدم المختار");
-    const copy = JSON.parse(JSON.stringify(file));
-    copy.user_info.name = newName;
-    writeUserFile(newName, copy);
-    index.push(copy.user_info); saveIndex(index);
-    renderPrev();
-    msg(prev, `تم نسخ المستخدم ${original} الى ${newName}`, true);
-  };
-
-  // Delete users
-  $("#deleteUser").onclick = () => {
-    const names = getSelectedNames();
-    const prev = $("#prevMsg");
-    if(names.length === 0){ return msg(prev, "يرجى اختيار مستخدم للحذف"); }
-    if(!confirm("هل انت متأكد من الحذف؟")) return;
-    let index = loadIndex();
-    names.forEach(n => removeUserFile(n));
-    index = index.filter(u => !names.includes(u.name));
-    saveIndex(index);
-    renderPrev();
-    msg(prev, "تم الحذف", true);
-  };
-
-  // First paint
-  // Show welcome by default
-</script>
+<script src="language.js"></script>
+<script src="script.js"></script>
 </body>
-</html>
